@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { AppRoutes } from './components/AppRoutes';
+import { Authcontext } from './context/authContext';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from './firebase.config';
 
-function App() {
+
+
+export const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+
+const App = () => {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Authcontext.Provider value={{signup}}>  
+      <div className='bg-state-300 h-screen text-white flex'>
+        <AppRoutes/>
+      </div>
+    </Authcontext.Provider>
+  )
 }
-
-export default App;
+ export default App;
